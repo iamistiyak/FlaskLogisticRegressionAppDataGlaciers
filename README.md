@@ -1,82 +1,136 @@
-# IllnessPredictor
+# IllnessPredictorDataGlaciersW4-5
 
-**Description:** The Illness Prediction Web App is a machine learning-based Flask web application designed to predict the likelihood of a person being affected by a particular illness based on various input features such as city, gender, age, and income. This app utilizes a Random Forest Classifier trained on a dataset containing demographic and illness-related information.<br><br>
+# 🧠 Illness Prediction Web App
 
-**DATASET:**https://www.kaggle.com/datasets/carlolepelaars/toy-dataset <br><br><br><br>
+**Project Link:** [https://flasklogisticregressionappdataglaciers.onrender.com](https://flasklogisticregressionappdataglaciers.onrender.com)  
+**Dataset:** [Kaggle - Toy Dataset](https://www.kaggle.com/datasets/carlolepelaars/toy-dataset)
 
-**Table of Contents:** <br>
+---
 
-•Project Overview <br>
-•Features<br>
-•Tech Stack<br>
-•Setup Instructions<br>
-•How to Use<br>
-•Model Details<br>
-•Use this model<br>
+## 📌 Project Overview
 
+The **Illness Prediction Web App** is a machine learning-based Flask application designed to estimate the probability that a user is affected by an illness, based on demographic inputs like **City**, **Gender**, **Age**, and **Income**.
 
-# Features
-•User Input Form: Allows users to input their City, Gender, Age, and Income for illness prediction.
+The model is trained using a logistic regression classifier and achieves an accuracy of **92.08%**.
 
-•Predictions: After input, the model predicts the probability of the user suffering from a particular illness.
+---
 
-•Machine Learning Model: A Random Forest Classifier is used for making the illness predictions based on historical data.
+## 📋 Table of Contents
 
-# Tech Stack
-•Backend: Python, Flask
+- [Features](#features)  
+- [Tech Stack](#tech-stack)  
+- [Setup Instructions](#setup-instructions)  
+- [How to Use](#how-to-use)  
+- [Model Details](#model-details)  
+- [Dataset](#dataset)  
+- [Insights](#insights)
 
-•Machine Learning: scikit-learn (Random Forest Classifier)
+---
 
-•Frontend: HTML, CSS (for creating the user interface)
+## 🚀 Features
 
-•Database: None (Currently using static dataset)
+- **Interactive User Input Form**  
+  Users can select their City, Gender, and input their Age and Income.
 
-•Version Control: Git, GitHub
+- **Probability-based Predictions**  
+  The app returns a **probability score** indicating the chance of the user being affected by an illness.
 
-# Setup Instructions
-To run this project locally on your machine, follow the steps below:
+- **Machine Learning Integration**  
+  Built using a Logistic Regression model trained on real-world demographic data.
 
-Prerequisites
-•Python (3.7 or higher)
+---
 
-•Git (for version control)
+## 🧰 Tech Stack
 
-•pip (Python package installer)
+- **Backend:** Python, Flask  
+- **Machine Learning:** scikit-learn (Logistic Regression)  
+- **Frontend:** HTML, CSS (via Flask templates)  
+- **Database:** None (static CSV dataset used)  
+- **Version Control:** Git & GitHub  
 
+---
 
-# How to Use
-Input Form: The app presents a form where users can select a City from the dropdown, choose their Gender, input their Age and Income.
+## 🛠️ Setup Instructions
 
-Prediction: Once the user fills out the form and submits it, the Flask app collects the data and processes it through the Random Forest Classifier model to return a prediction on whether the user might be at risk for a particular illness.
+### Prerequisites
 
-Results: The app displays the predicted illness probability with a success or error message.
+- Python (3.7 or higher)  
+- pip (Python package installer)  
+- Git (optional, for cloning the repo)  
 
-# Model Details
-The prediction model is based on a Random Forest Classifier trained on a dataset with information about individuals' City, Gender, Age, and Income. The model outputs a probability value between 0 and 1, representing the likelihood that the user is at risk of the illness.
+### Steps to Run Locally
 
-# Dataset
-The dataset (toy_dataset.csv) contains historical data about people's characteristics and whether they had an illness or not. It was used to train the model. You can see a sample of this data below: <br>
+1. **Clone the Repository**
+   ```bash
+   git clone <your-repo-url>
+   cd <your-project-folder>
+   ```
 
-| **City**   | **Gender** | **Age** | **Income ($)** | **Illness** |
-|------------|------------|---------|----------------|-------------|
-| City A     | Male       | 34      | 40000          | Yes         |
-| City B     | Female     | 56      | 55000          | No          |
-| City A     | Female     | 23      | 30000          | Yes         |
-| City C     | Male       | 45      | 60000          | No          |
-| City B     | Male       | 30      | 45000          | Yes         |
+2. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-# Training the Model
-The dataset was pre-processed by encoding categorical variables (like City and Gender) using one-hot encoding and mapping the target variable Illness (Yes/No) into numeric values (1 for Yes, 0 for No). The model was trained using 80% of the data for training and 20% for testing.
+3. **Train the Model**
+   ```bash
+   python train_model.py
+   ```
 
-# Use this model
-Anyone can install the dependencies using:
-pip install -r requirements.txt
+4. **Run the Flask App**
+   ```bash
+   python main.py
+   ```
 
+5. **Visit the App**  
+   Open your browser and go to [http://localhost:5000](http://localhost:5000)
 
+---
 
+## 📄 How to Use
 
+1. Navigate to the app in your browser.  
+2. Fill in the form with:
+   - **City** (from dropdown)
+   - **Gender**
+   - **Age**
+   - **Income**
+3. Click **Submit**.
+4. The app will return a **predicted probability** of the user having the illness.
 
-https://github.com/user-attachments/assets/c4c21a2d-39df-4a7f-8054-3ccbca3a12b6
+---
 
+## 📊 Model Details
 
+- **Model Type:** Logistic Regression  
+- **Accuracy:** 92.08% on test data  
+- **Input Features:** City (top 10 categories + 'Other'), Gender, Age, Income  
+- **Target Variable:** `Illness` (Yes → 1, No → 0)  
+- **Encoding:** One-hot encoding for categorical features  
 
+The model outputs a probability between **0 and 1**, where values closer to **1** indicate a higher likelihood of illness.
+
+---
+
+## 📁 Dataset
+
+The dataset used is a publicly available toy dataset containing demographic information and illness status.
+
+| City   | Gender | Age | Income | Illness |
+|--------|--------|-----|--------|---------|
+| City A | Male   | 34  | 40000  | Yes     |
+| City B | Female | 56  | 55000  | No      |
+| City A | Female | 23  | 30000  | Yes     |
+| City C | Male   | 45  | 60000  | No      |
+| City B | Male   | 30  | 45000  | Yes     |
+
+The model simplifies city labels to the top 10 most common entries, encoding them via one-hot encoding. The target (`Illness`) is binarized for model training.
+
+---
+
+## 🔍 Insights
+
+- During testing and experimentation, an interesting pattern was observed:
+  
+  **As income decreases, the predicted probability of illness tends to increase — regardless of age.**
+
+  This suggests that lower income levels may be correlated with higher health risk in the dataset, potentially due to socio-economic factors. This is a valuable insight that could be explored further with additional data or domain expertise.
