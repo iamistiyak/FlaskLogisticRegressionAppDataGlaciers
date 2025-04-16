@@ -1,84 +1,136 @@
-# 🚀 Large File Ingestion and Processing Benchmark
+# IllnessPredictorDataGlaciersW4-5
 
-This project explores efficient techniques for reading and processing a large CSV dataset using Python libraries like **Pandas**, **Dask**, and **Modin**. The file used is a sample of NYC Yellow Taxi trip data.
+# 🧠 Illness Prediction Web App
 
----
-Task:
-Take any csv/text file of 2+ GB of your choice. --- (You can do this assignment on Google colab)
-
-Read the file ( Present approach of reading the file )
-
-Try different methods of file reading eg: Dask, Modin, Ray, pandas and present your findings in term of computational efficiency
-
-Perform basic validation on data columns : eg: remove special character , white spaces from the col name
-
-As you already know the schema hence create a YAML file and write the column name in YAML file. --define separator of
-read and write file, column name in YAML
-
-Validate number of columns and column name of ingested file with YAML.
-
-Write the file in pipe separated text file (|) in gz format.
-
-Create a summary of the file:
-
-Total number of rows,
-
-total number of columns
-
-file size
+**Project Link:** [https://flasklogisticregressionappdataglaciers.onrender.com](https://flasklogisticregressionappdataglaciers.onrender.com)  
+**Dataset:** [Kaggle - Toy Dataset](https://www.kaggle.com/datasets/carlolepelaars/toy-dataset)
 
 ---
 
-## 📌 Objectives
+## 📌 Project Overview
 
-- Compare file reading performance using different Python libraries
-- Perform basic data cleaning on column names
-- Define schema using YAML and validate against the ingested file
-- Export the cleaned data to a compressed format with custom delimiter
-- Generate file summary including row count, column count, and size
+The **Illness Prediction Web App** is a machine learning-based Flask application designed to estimate the probability that a user is affected by an illness, based on demographic inputs like **City**, **Gender**, **Age**, and **Income**.
+
+The model is trained using a logistic regression classifier and achieves an accuracy of **92.08%**.
 
 ---
 
-## 📂 Dataset
+## 📋 Table of Contents
 
-- 📁 File: `yellow-tripdata-2025-01.csv`
-- 📦 Source: [NYC TLC Trip Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
-- 🧮 Size: ~375MB
-- 🔢 Rows: 3.47 million+
-- 📊 Columns: 19
-
----
-
-## ⚙️ Technologies Used
-
-- `pandas`
-- `dask`
-- `modin` (with `ray`)
-- `pyyaml`
-- `gzip`
-- `Google Colab` for execution
+- [Features](#features)  
+- [Tech Stack](#tech-stack)  
+- [Setup Instructions](#setup-instructions)  
+- [How to Use](#how-to-use)  
+- [Model Details](#model-details)  
+- [Dataset](#dataset)  
+- [Insights](#insights)
 
 ---
 
-## 🚀 File Reading Benchmark
+## 🚀 Features
 
-| **Library** | **Read Time (s)** | **Notes** |
-|-------------|-------------------|-----------|
-| Pandas      | 16.58             | Simple and reliable, but slower |
-| Dask        | 2.67              | Fastest using lazy and parallel evaluation |
-| Modin       | 38.72             | Overhead due to Ray + Colab's memory limits |
+- **Interactive User Input Form**  
+  Users can select their City, Gender, and input their Age and Income.
 
-> ✅ **Dask** outperformed the rest for large-scale ingestion in this setup.
+- **Probability-based Predictions**  
+  The app returns a **probability score** indicating the chance of the user being affected by an illness.
+
+- **Machine Learning Integration**  
+  Built using a Logistic Regression model trained on real-world demographic data.
 
 ---
 
-## 🧹 Column Cleaning
+## 🧰 Tech Stack
 
-Cleaned column names by:
-- Stripping leading/trailing whitespace
-- Replacing special characters with `_` using regex
+- **Backend:** Python, Flask  
+- **Machine Learning:** scikit-learn (Logistic Regression)  
+- **Frontend:** HTML, CSS (via Flask templates)  
+- **Database:** None (static CSV dataset used)  
+- **Version Control:** Git & GitHub  
 
-```python
-def clean_columns(df):
-    df.columns = [re.sub(r'\W+', '_', col.strip()) for col in df.columns]
-    return df
+---
+
+## 🛠️ Setup Instructions
+
+### Prerequisites
+
+- Python (3.7 or higher)  
+- pip (Python package installer)  
+- Git (optional, for cloning the repo)  
+
+### Steps to Run Locally
+
+1. **Clone the Repository**
+   ```bash
+   git clone <your-repo-url>
+   cd <your-project-folder>
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Train the Model**
+   ```bash
+   python train_model.py
+   ```
+
+4. **Run the Flask App**
+   ```bash
+   python main.py
+   ```
+
+5. **Visit the App**  
+   Open your browser and go to [http://localhost:5000](http://localhost:5000)
+
+---
+
+## 📄 How to Use
+
+1. Navigate to the app in your browser.  
+2. Fill in the form with:
+   - **City** (from dropdown)
+   - **Gender**
+   - **Age**
+   - **Income**
+3. Click **Submit**.
+4. The app will return a **predicted probability** of the user having the illness.
+
+---
+
+## 📊 Model Details
+
+- **Model Type:** Logistic Regression  
+- **Accuracy:** 92.08% on test data  
+- **Input Features:** City (top 10 categories + 'Other'), Gender, Age, Income  
+- **Target Variable:** `Illness` (Yes → 1, No → 0)  
+- **Encoding:** One-hot encoding for categorical features  
+
+The model outputs a probability between **0 and 1**, where values closer to **1** indicate a higher likelihood of illness.
+
+---
+
+## 📁 Dataset
+
+The dataset used is a publicly available toy dataset containing demographic information and illness status.
+
+| City   | Gender | Age | Income | Illness |
+|--------|--------|-----|--------|---------|
+| City A | Male   | 34  | 40000  | Yes     |
+| City B | Female | 56  | 55000  | No      |
+| City A | Female | 23  | 30000  | Yes     |
+| City C | Male   | 45  | 60000  | No      |
+| City B | Male   | 30  | 45000  | Yes     |
+
+The model simplifies city labels to the top 10 most common entries, encoding them via one-hot encoding. The target (`Illness`) is binarized for model training.
+
+---
+
+## 🔍 Insights
+
+- During testing and experimentation, an interesting pattern was observed:
+  
+  **As income decreases, the predicted probability of illness tends to increase — regardless of age.**
+
+  This suggests that lower income levels may be correlated with higher health risk in the dataset, potentially due to socio-economic factors. This is a valuable insight that could be explored further with additional data or domain expertise.
